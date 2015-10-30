@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.util.*;
 
 public class InOutCommand {
@@ -51,7 +50,8 @@ public class InOutCommand {
 		
 		if("info".equals(split[1])) {
 			Object value = hashmap.get(split[2]);
-			if (value != null) {
+			ArrayList<String> isOnline = hashmap.get(split[0]);
+			if ((value != null) && (isOnline != null) && (isOnline.get(isOnline.size()-1) == "1")) {
 				arraylist = hashmap.get(split[2]);
 //		        System.out.println(arraylist);
 		        if (arraylist.get(arraylist.size()-1) == "1") {

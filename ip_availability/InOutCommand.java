@@ -1,12 +1,11 @@
 import java.util.Scanner;
 import java.util.*;
-import java.text.*;
 
 public class InOutCommand {
 	static int i = 0;
 	final static HashMap<String, ArrayList<String>> hashmap = 
 	        new HashMap<String, ArrayList<String>>();
-	
+	//static ArrayList<String> arraylist = new ArrayList<String>();
 	public static void main(String[] args) {
 		final Scanner in = new Scanner(System.in);
 		
@@ -30,6 +29,8 @@ public class InOutCommand {
 			    arraylist.add("1");
 			    hashmap.put(split[0], arraylist);
 		    } else {
+				arraylist = hashmap.get(split[0]);
+
 		    	arraylist.add("1");
 			    hashmap.put(split[0], arraylist);
 		    }

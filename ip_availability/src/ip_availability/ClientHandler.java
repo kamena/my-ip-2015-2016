@@ -16,10 +16,12 @@ public class ClientHandler implements Runnable {
 	private final Socket socket;
 
 	private final EchoServer echoServer;
+	private final CommandHandler CommandHandler;
 
 	public ClientHandler(EchoServer echoServer, Socket socket) {
 		this.socket = socket;
 		this.echoServer = echoServer;
+		this.CommandHandler = new CommandHandler(socket);
 	}
 	
 	@Override
@@ -31,74 +33,7 @@ public class ClientHandler implements Runnable {
 				new Scanner(socket.getInputStream());
 			while (scanner.hasNextLine()) {
 				final String line = scanner.nextLine();
-				final String[] split = line.split(":");	  
-				ArrayList<String> arraylist = new ArrayList<String>();
-				
-				SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyyMMdd'T'HH'_'mm'_'ss.SSSZ");
-				Date dateNow = new Date(0 );
-				
-				if ("login".equals(split[1])){
-				    if (hashmap.get(split[0]) == null) {
-				    	arraylist = new ArrayList<String>();
-					    arraylist.add(dateFormat.format(dateNow));
-					    hashmap.put(split[0], arraylist);
-				    } else {
-						arraylist = hashmap.get(split[0]);
-
-				    	arraylist.add(dateFormat.format(dateNow));
-					    hashmap.put(split[0], arraylist);
-				    }
-				    out.println("ok");
-				} else
-				if ("logout".equals(split[1])){	
-					arraylist = hashmap.get(split[0]);
-
-					if (hashmap.get(split[0]) == null) {
-						out.println("error:notlogged");
-					} else if (arraylist.size() % 2 != 0) {
-					    arraylist.add(dateFormat.format(dateNow));
-					    hashmap.put(split[0], arraylist);
-					    out.println("ok");
-					} else out.println("error:notlogged");
-
-				} else
-				
-				if("info".equals(split[1])) {
-					Object value = hashmap.get(split[2]);
-					ArrayList<String> isOnline = hashmap.get(split[0]);
-					if ((value != null) && (isOnline != null) && (isOnline.size() % 2 != 0)) {
-						arraylist = hashmap.get(split[2]);
-						String str = "";
-						for (String date : arraylist) { str = str + date + ":"; }
-				        if (arraylist.size() % 2 != 0) {
-				        	out.println("ok:" + split[2] + ":true:" + ((arraylist.size()+1)/2) + str);
-				        } else out.println("ok:" + split[2] + ":false:" + ((arraylist.size())/2) + str);
-					} else out.println("error:notlogged");
-				} else				
-				if ("listavailable".equals(split[1])){
-					for (Object key : hashmap.keySet()) {
-						arraylist = hashmap.get(key);
-						if (arraylist.size() % 2 != 0) {
-							out.print(key);
-							out.print(":");
-						}
-					}
-					out.println();
-				} else 
-				if ("listabsen".equals(split[1])){
-					out.print("ok:");
-					for (Object key : hashmap.keySet()) {
-						arraylist = hashmap.get(key);
-						if (arraylist.size() % 2 == 0) {
-							out.print(key);
-							out.print(":");
-						}
-					}	
-					out.println();
-				} else
-				if ("shutdown".equals(split[1])) {
-					echoServer.stopServer();
-				} else out.println("error:unknowncommand");
+				out.println(CommandHandler.executeCommands(CommandHandler.SplitCommand(line), echoServer));
 			}
 			scanner.close();
 			out.close();

@@ -74,7 +74,28 @@ public class ClientHandler implements Runnable {
 				        	out.println("ok:" + split[2] + ":true:" + ((arraylist.size()+1)/2) + str);
 				        } else out.println("ok:" + split[2] + ":false:" + ((arraylist.size())/2) + str);
 					} else out.println("error:notlogged");
-				} else								
+				} else				
+				if ("listavailable".equals(split[1])){
+					for (Object key : hashmap.keySet()) {
+						arraylist = hashmap.get(key);
+						if (arraylist.size() % 2 != 0) {
+							out.print(key);
+							out.print(":");
+						}
+					}
+					out.println();
+				} else 
+				if ("listabsen".equals(split[1])){
+					out.print("ok:");
+					for (Object key : hashmap.keySet()) {
+						arraylist = hashmap.get(key);
+						if (arraylist.size() % 2 == 0) {
+							out.print(key);
+							out.print(":");
+						}
+					}	
+					out.println();
+				} else
 				if ("shutdown".equals(split[1])) {
 					echoServer.stopServer();
 				} else out.println("error:unknowncommand");

@@ -68,10 +68,11 @@ public class ClientHandler implements Runnable {
 					ArrayList<String> isOnline = hashmap.get(split[0]);
 					if ((value != null) && (isOnline != null) && (isOnline.size() % 2 != 0)) {
 						arraylist = hashmap.get(split[2]);
-
+						String str = "";
+						for (String date : arraylist) { str = str + date + ":"; }
 				        if (arraylist.size() % 2 != 0) {
-				        	out.println("ok:" + split[2] + ":true:" + ((arraylist.size()+1)/2));
-				        } else out.println("ok:" + split[2] + ":false:" + ((arraylist.size())/2));
+				        	out.println("ok:" + split[2] + ":true:" + ((arraylist.size()+1)/2) + str);
+				        } else out.println("ok:" + split[2] + ":false:" + ((arraylist.size())/2) + str);
 					} else out.println("error:notlogged:info");
 				} else
 				

@@ -54,12 +54,12 @@ public class ClientHandler implements Runnable {
 					arraylist = hashmap.get(split[0]);
 
 					if (hashmap.get(split[0]) == null) {
-						out.println("error:notlogged:logout:1");
+						out.println("error:notlogged");
 					} else if (arraylist.size() % 2 != 0) {
 					    arraylist.add(dateFormat.format(dateNow));
 					    hashmap.put(split[0], arraylist);
 					    out.println("ok");
-					} else out.println("error:notlogged:logout:2");
+					} else out.println("error:notlogged");
 
 				} else
 				
@@ -73,12 +73,11 @@ public class ClientHandler implements Runnable {
 				        if (arraylist.size() % 2 != 0) {
 				        	out.println("ok:" + split[2] + ":true:" + ((arraylist.size()+1)/2) + str);
 				        } else out.println("ok:" + split[2] + ":false:" + ((arraylist.size())/2) + str);
-					} else out.println("error:notlogged:info");
-				} else
-				
+					} else out.println("error:notlogged");
+				} else								
 				if ("shutdown".equals(split[1])) {
 					echoServer.stopServer();
-				} else out.println("error:unknowncommand:shutdown");
+				} else out.println("error:unknowncommand");
 			}
 			scanner.close();
 			out.close();

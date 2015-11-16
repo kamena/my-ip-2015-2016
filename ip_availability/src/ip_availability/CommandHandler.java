@@ -54,7 +54,7 @@ public class CommandHandler {
 		if ((value != null) && (isOnline != null) && (isOnline.size() % 2 != 0)) {
 			arraylist = hashmap.get(split[2]);
 			String str = "";
-			for (String line : arraylist) { str = str + line + ":"; }
+			for (String line : arraylist) { str += ":" + line; }
 	        if (arraylist.size() != 0) {
 	        	return "ok:" + split[2] + ":true:" + ((arraylist.size()+1)/2) + str;
 	        } else return "ok:" + split[2] + ":false:" + ((arraylist.size())/2) + str;
@@ -62,28 +62,25 @@ public class CommandHandler {
 	}
 	
 	private String listavailable(ArrayList<String> arraylist) {	
-		String str = "";
-		for (Object key : hashmap.keySet()) {
-			arraylist = hashmap.get(key);
+		String listavailable = "ok";
+		for (Object name : hashmap.keySet()) {
+			arraylist = hashmap.get(name);
 			if (arraylist.size() % 2 != 0) {
-				str = str + key + ":";
+				listavailable += ":" + name ;
 			}
 		}
-		str = str + "\n";
-		return str;
+		return listavailable;
 	}
 	
 	private String listabsen(ArrayList<String> arraylist) {	
-		System.out.print("ok:");
-		String str = "";
-		for (Object key : hashmap.keySet()) {
-			arraylist = hashmap.get(key);
+		String listabsen = "ok";
+		for (Object name : hashmap.keySet()) {
+			arraylist = hashmap.get(name);
 			if (arraylist.size() % 2 == 0) {
-				str = str + key + ":";
+				listabsen+= ":" + name ;
 			}
 		}	
-		str = str + "\n";
-		return str;
+		return listabsen;
 	}	
 	
 	public String executeCommands(String[] split, EchoServer echoServer) throws IllegalArgumentException, IOException {	  

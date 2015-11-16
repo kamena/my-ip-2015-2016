@@ -1,10 +1,5 @@
 package ip_availability;
 
-//import java.io.PrintStream;
-//import java.net.Socket;
-//import java.text.SimpleDateFormat;
-//import java.util.*;
-
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -15,6 +10,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class ClientHandler implements Runnable {
+
 	final static HashMap<String, ArrayList<String>> hashmap = 
 	        new HashMap<String, ArrayList<String>>();
 	private final Socket socket;
@@ -65,6 +61,18 @@ public class ClientHandler implements Runnable {
 					    out.println("ok");
 					} else out.println("error:notlogged:logout:2");
 
+				} else
+				
+				if("info".equals(split[1])) {
+					Object value = hashmap.get(split[2]);
+					ArrayList<String> isOnline = hashmap.get(split[0]);
+					if ((value != null) && (isOnline != null) && (isOnline.size() % 2 != 0)) {
+						arraylist = hashmap.get(split[2]);
+
+				        if (arraylist.size() % 2 != 0) {
+				        	out.println("ok:" + split[2] + ":true:" + ((arraylist.size()+1)/2));
+				        } else out.println("ok:" + split[2] + ":false:" + ((arraylist.size())/2));
+					} else out.println("error:notlogged:info");
 				} else
 				
 				if ("shutdown".equals(split[1])) {

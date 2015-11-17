@@ -90,7 +90,14 @@ public class CommandHandler {
 		DateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd'T'HH_mm_ss.SSSZ");
 		Date dateNow = new Date();
 		
-		if(split.length < 2) return "error:unknowncommand";
+		if(split.length < 2) {
+			switch(split[0]) {
+				case "listavailable": return listavailable(arraylist);
+				case "listabsen": return listabsen(arraylist);
+				case "shutdown": echoServer.stopServer();
+				default: return "error:unknowncommand";
+			}
+		}
 		else {
 			switch(split[1]) {
 				case "login": return login(split, arraylist, dateNow, dateFormat);

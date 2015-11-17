@@ -3,8 +3,6 @@ package ip_availability;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;

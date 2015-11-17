@@ -89,21 +89,23 @@ public class CommandHandler {
 		
 		DateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd'T'HH_mm_ss.SSSZ");
 		Date dateNow = new Date();
-
-		if ("login".equals(split[1]))
-			return login(split, arraylist, dateNow, dateFormat);
-		else if ("logout".equals(split[1]))	
-			return logout(split, arraylist, dateNow, dateFormat);
-		else if("info".equals(split[1])) 
-			return info(split, arraylist);
-		else if ("listavailable".equals(split[1]))
-			return listavailable(arraylist);
-		else if ("listabsen".equals(split[1]))
-			return listabsen(arraylist);
-		else if ("shutdown".equals(split[1])) 
-			echoServer.stopServer();
-		else return "error:unknowncommand";
-
+		if(split.length < 2) return "error:unknowncommand";
+		else {
+			if ("login".equals(split[1]))
+				return login(split, arraylist, dateNow, dateFormat);
+			else if ("logout".equals(split[1]))	
+				return logout(split, arraylist, dateNow, dateFormat);
+			else if("info".equals(split[1])) 
+				return info(split, arraylist);
+			else if ("listavailable".equals(split[1]))
+				return listavailable(arraylist);
+			else if ("listabsen".equals(split[1]))
+				return listabsen(arraylist);
+			else if ("shutdown".equals(split[1])) 
+				echoServer.stopServer();
+			else return "error:unknowncommand";
+		}
+//		return "ok";
 		return null;
 	}
 }

@@ -55,7 +55,7 @@ public class CommandHandler {
 			arraylist = hashmap.get(split[2]);
 			String str = "";
 			for (String line : arraylist) str += ":" + line;
-	        if (arraylist.size() != 0)
+	        if (arraylist.size() % 2 != 0)
 	        	return "ok:" + split[2] + ":true:" + ((arraylist.size()+1)/2) + str;
 	        else return "ok:" + split[2] + ":false:" + ((arraylist.size())/2) + str;
 		} else return "error:notlogged";

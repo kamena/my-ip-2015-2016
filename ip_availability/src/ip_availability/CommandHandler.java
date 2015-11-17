@@ -2,9 +2,10 @@ package ip_availability;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class CommandHandler {
@@ -22,7 +23,7 @@ public class CommandHandler {
 		return split;
 	}
 	
-	private String login(String[] split, ArrayList<String> arraylist, Date dateNow, SimpleDateFormat dateFormat) {
+	private String login(String[] split, ArrayList<String> arraylist, Date dateNow, DateFormat dateFormat) {
 	    if (hashmap.get(split[0]) == null) {
 	    	arraylist = new ArrayList<String>();
 		    arraylist.add(dateFormat.format(dateNow));
@@ -36,7 +37,7 @@ public class CommandHandler {
 	    return "ok";
 	}
 	
-	private String logout(String[] split, ArrayList<String> arraylist, Date dateNow, SimpleDateFormat dateFormat) {
+	private String logout(String[] split, ArrayList<String> arraylist, Date dateNow, DateFormat dateFormat) {
 		arraylist = hashmap.get(split[0]);
 
 		if (hashmap.get(split[0]) == null) {
@@ -86,9 +87,9 @@ public class CommandHandler {
 	public String executeCommands(String[] split, EchoServer echoServer) throws IllegalArgumentException, IOException {	  
 		ArrayList<String> arraylist = new ArrayList<String>();
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyyMMdd'T'HH'_'mm'_'ss.SSSZ");
-		Date dateNow = new Date(0);
-		
+		DateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd'T'HH_mm_ss.SSSZ");
+		Date dateNow = new Date();
+
 		if ("login".equals(split[1]))
 			return login(split, arraylist, dateNow, dateFormat);
 		else if ("logout".equals(split[1]))	
@@ -102,7 +103,7 @@ public class CommandHandler {
 		else if ("shutdown".equals(split[1])) 
 			echoServer.stopServer();
 		else return "error:unknowncommand";
-//		return "ok";
+
 		return null;
 	}
 }

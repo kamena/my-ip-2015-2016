@@ -30,7 +30,6 @@ public class CommandHandler {
 		    hashmap.put(split[0], arraylist);
 	    } else {
 			arraylist = hashmap.get(split[0]);
-
 	    	arraylist.add(dateFormat.format(dateNow));
 		    hashmap.put(split[0], arraylist);
 	    }
@@ -40,9 +39,9 @@ public class CommandHandler {
 	private String logout(String[] split, ArrayList<String> arraylist, Date dateNow, DateFormat dateFormat) {
 		arraylist = hashmap.get(split[0]);
 
-		if (hashmap.get(split[0]) == null) {
+		if (hashmap.get(split[0]) == null) 
 			return "error:notlogged";
-		} else if (arraylist.size() % 2 != 0) {
+		else if (arraylist.size() % 2 != 0) {
 		    arraylist.add(dateFormat.format(dateNow));
 		    hashmap.put(split[0], arraylist);
 		    return "ok";
@@ -55,10 +54,10 @@ public class CommandHandler {
 		if ((value != null) && (isOnline != null) && (isOnline.size() % 2 != 0)) {
 			arraylist = hashmap.get(split[2]);
 			String str = "";
-			for (String line : arraylist) { str += ":" + line; }
-	        if (arraylist.size() != 0) {
+			for (String line : arraylist) str += ":" + line;
+	        if (arraylist.size() != 0)
 	        	return "ok:" + split[2] + ":true:" + ((arraylist.size()+1)/2) + str;
-	        } else return "ok:" + split[2] + ":false:" + ((arraylist.size())/2) + str;
+	        else return "ok:" + split[2] + ":false:" + ((arraylist.size())/2) + str;
 		} else return "error:notlogged";
 	}
 	
@@ -97,8 +96,7 @@ public class CommandHandler {
 				case "shutdown": echoServer.stopServer();
 				default: return "error:unknowncommand";
 			}
-		}
-		else {
+		} else {
 			switch(split[1]) {
 				case "login": return login(split, arraylist, dateNow, dateFormat);
 				case "logout": return logout(split, arraylist, dateNow, dateFormat);

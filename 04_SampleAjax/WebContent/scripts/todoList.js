@@ -51,6 +51,11 @@ $(document).ready(function() {
 		$(".task-action-cancel").click(function() {
 			showPanel("emptyPanel");
 		});
+		
+		$("#addTaskButton").click(function() {
+			showPanel("createPanel");
+		});
+
 	}
 	attachHandlers();
 	reloadTasks();

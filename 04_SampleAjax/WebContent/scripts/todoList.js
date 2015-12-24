@@ -61,8 +61,8 @@ $(document).ready(function() {
 		});
 		
 		$("#createPanel .task-action-ok").click(function() {
-			var title = $("#createPanel input[name='title']").val();
-			var text = $("#createPanel textarea").val();
+			var title = $("#createPanel input[name=title]").val();
+			var text = $("#createPanel textarea[name=description]").val();
 			// add task
 			var task = {
 				title: title,
@@ -84,6 +84,20 @@ $(document).ready(function() {
 			document.getElementById('updatePanel').style.display = 'block';
 		});
 		
+		$("#updatePanel .task-action-ok").click(function() {
+			var title = $("#updatePanel input[name=title]").val();
+			var text = $("#updatePanel textarea[name=description]").val();
+			$.ajax(taskEndpoint(taskId), {
+				method: "PUT",
+				contentType: "application/json; charset=utf-8",
+				data: JSON.stringify({
+					title: title,
+					description: text
+				}),
+				dataType: "json"
+			}).then(reloadTasks).then(showPanel("emptyPanel"));
+		});
+		
 		$(".task-action-remove").click(function() {
 			$("input").attr("id");
 			$.ajax(taskEndpoint(taskId),{
@@ -91,6 +105,8 @@ $(document).ready(function() {
 			}).then(reloadTasks);
 			showPanel("emptyPanel");
 		});
+		
+
 	}
 	attachHandlers();
 	reloadTasks();

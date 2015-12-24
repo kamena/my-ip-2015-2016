@@ -43,9 +43,13 @@ $(document).ready(function() {
 			_.forEach(response, addTaskToList);
 		});
 	}
+	
+	
+	
 	function attachHandlers() {
+		var taskId;
 		$(document).on("click", "#tasksList [data-task-id]", function() {
-			var taskId = $(this).attr("data-task-id");
+			taskId = $(this).attr("data-task-id");
 			readTask(taskId).then(showTaskView);
 		});
 		$(".task-action-cancel").click(function() {
@@ -73,6 +77,14 @@ $(document).ready(function() {
 				console.log(response);
 				return response;
 			});			
+		});
+		
+		$(".task-action-remove").click(function() {
+			$("input").attr("id");
+			$.ajax(taskEndpoint(taskId),{
+				method: "DELETE"
+			}).then(reloadTasks);
+			showPanel("emptyPanel");
 		});
 	}
 	attachHandlers();

@@ -55,7 +55,25 @@ $(document).ready(function() {
 		$("#addTaskButton").click(function() {
 			showPanel("createPanel");
 		});
-
+		
+		$("#createPanel .task-action-ok").click(function(){
+			var title = $("#createPanel input[name='title']").val();
+			var text = $("#createPanel textarea").val();
+			// add task
+			var task = {
+				title: title,
+				description: text
+			};
+			var createPromise = $.ajax(ENDPOINT, {
+				method: "POST",
+				contentType: "application/json; charset=utf-8",
+				data: JSON.stringify(task),
+				dataType: "json"
+			}).then(function(response) {
+				console.log(response);
+				return response;
+			});			
+		});
 	}
 	attachHandlers();
 	reloadTasks();

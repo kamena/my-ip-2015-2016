@@ -60,7 +60,7 @@ $(document).ready(function() {
 			showPanel("createPanel");
 		});
 		
-		$("#createPanel .task-action-ok").click(function(){
+		$("#createPanel .task-action-ok").click(function() {
 			var title = $("#createPanel input[name='title']").val();
 			var text = $("#createPanel textarea").val();
 			// add task
@@ -79,10 +79,15 @@ $(document).ready(function() {
 			});			
 		});
 		
+		$("#readPanel .task-action-ok").click(function() {
+			document.getElementById('readPanel').style.display = 'none';
+			document.getElementById('updatePanel').style.display = 'block';
+		});
+		
 		$(".task-action-remove").click(function() {
 			$("input").attr("id");
 			$.ajax(taskEndpoint(taskId),{
-				method: "DELETE"
+				method: "delete"
 			}).then(reloadTasks);
 			showPanel("emptyPanel");
 		});
